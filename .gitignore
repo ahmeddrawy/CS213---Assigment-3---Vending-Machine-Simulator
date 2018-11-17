@@ -1,0 +1,7 @@
+
+*.o
+*.cbp
+*.layout
+*.depend
+*.exe
+ASSIGNMENT_3/main.cpp

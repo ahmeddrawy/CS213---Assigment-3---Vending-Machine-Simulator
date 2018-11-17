@@ -2,6 +2,9 @@
 #include "Stock.h"
 #include "Money.h"
 #include <iostream>
+#include <cstdlib>
+#include <cstdlib>
+
 VendingMachine::VendingMachine(){}
 void VendingMachine::setVendingMachine()
 {
@@ -60,6 +63,11 @@ void VendingMachine::runVendingMachine()
             std::cin >> choice;
             if (choice == 1)
                 printMenu();
+                else if (choice ==0 ) {
+
+                    std::cout<<"TERMINATING ....\n";
+                    exit(0);
+                }
         }
         while(choice != 0 && choice != 1);
 

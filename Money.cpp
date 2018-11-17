@@ -14,7 +14,7 @@ int Money::doubleCompare (double a, double b) const
 {
     if (fabs(a - b) <= EPS)
         return 0;
-    else if (a > b)
+    else if (a > b) /// -1 if a is bigger
         return -1;
     return 1;
 }
@@ -23,7 +23,8 @@ int Money::getBillCount(double bill) const
 {
     for (int i = 0; i < billValue.size(); ++i)
     {
-        if (doubleCompare(billValue[i], bill) == 0)
+        if (doubleCompare(billValue[i], bill) == 0) /// loop over the bill value which stored in it 0.5 1 5 10 20
+                                                    /// if bill == one of them return its count
             return billCount[i];
     }
     return 0;
@@ -43,7 +44,7 @@ void Money::decreaseBillCount(double bill, int count)
     {
         if (doubleCompare(billValue[i], bill) == 0)
         {
-            assert(billCount[i] >= count);
+            assert(billCount[i] >= count);  /// if removing more than the existing count
             billCount[i] -= count;
         }
     }
@@ -54,17 +55,17 @@ std::vector<int> Money::giveChange(double Change)
     for (int i = (int)billValue.size() - 1; i >= 0; --i)
     {
         int tempCount = 0;
-        while(doubleCompare(Change, billValue[i]) <= 0 && billCount[i] > 0) // Change >= billValue[i]
+        while(doubleCompare(Change, billValue[i]) <= 0 && billCount[i] > 0) /// Change >= billValue[i]
         {
             Change -= billValue[i];
-            Change += EPS;
-            billCount[i]--;
+            Change += EPS;          /// double percision
+            billCount[i]--;         /// change the count
             ++tempCount;
         }
         resultChange.push_back(tempCount);
     }
     std::reverse(resultChange.begin(), resultChange.end());
-    if (doubleCompare(Change, 0) != 0)
+    if (doubleCompare(Change, 0.5) ==-1)
     {
         std::cout << "\nNo enough change\n"
                 "Terminating...\n";
